@@ -1,0 +1,379 @@
+/* ==========================================
+   ОБЩИЕ СТИЛИ И СБРОСЫ (Глобальный дизайн)
+   ========================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #0b0c10;
+    color: #f5f5f7;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 25px;
+    letter-spacing: -0.5px;
+}
+
+/* Кастомный курсор-точка */
+.custom-cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #00ff88;
+    border-radius: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+/* ==========================================
+   БЛОК ПОРТФОЛИО И ФИЛЬТРОВ
+   ========================================== */
+.filter-wrapper {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.filter-btn {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #999;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.filter-btn.active, .filter-btn:hover {
+    background: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.portfolio-item-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 15px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.portfolio-item-card.hide {
+    display: none;
+}
+
+.card-preview {
+    height: 140px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+/* ==========================================
+   ИНТЕРАКТИВНЫЙ КАЛЬКУЛЯТОР СТОИМОСТИ
+   ========================================== */
+.tiles-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.selector-tile {
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.selector-tile h4 {
+    font-size: 16px;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.selector-tile p {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.4;
+}
+
+.selector-tile.active {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: #00ff88;
+}
+
+/* ==========================================
+   КАСТОМНЫЕ ДОПОЛНИТЕЛЬНЫЕ ОПЦИИ (ЭЛЕМЕНТЫ ФОРМЫ)
+   ========================================== */
+.addons-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+@media (max-width: 600px) {
+    .addons-container { grid-template-columns: 1fr; }
+    .portfolio-grid { grid-template-columns: 1fr; }
+}
+
+/* Полный сброс отображения стандартных чекбоксов */
+.real-checkbox {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.custom-addon-card {
+    cursor: pointer;
+    display: block;
+    user-select: none;
+}
+
+.custom-check-content {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    transition: all 0.25s ease;
+}
+
+.custom-check-content:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.addon-icon {
+    width: 22px;
+    height: 22px;
+    color: #555;
+    flex-shrink: 0;
+    transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.addon-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.addon-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #b3b3b3;
+}
+
+.addon-price {
+    font-size: 12px;
+    color: #666;
+    margin-top: 2px;
+}
+
+/* Состояния чекбокса по селектору :checked */
+.real-checkbox:checked + .custom-check-content {
+    background: rgba(0, 255, 136, 0.02);
+    border-color: #00ff88;
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.06);
+}
+
+.real-checkbox:checked + .custom-check-content .addon-icon {
+    color: #00ff88;
+    transform: scale(1.05);
+}
+
+.real-checkbox:checked + .custom-check-content .addon-title {
+    color: #ffffff;
+}
+
+.real-checkbox:disabled + .custom-check-content {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+/* Информационный блок стоимости */
+.price-counter-box {
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.price-counter-box span {
+    font-size: 14px;
+    color: #888;
+}
+
+.price-value {
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+/* Анимация скачка цены */
+.pulse-price {
+    animation: pricePulse 0.3s ease;
+}
+@keyframes pricePulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.04); color: #00ff88; }
+    100% { transform: scale(1); }
+}
+
+/* ==========================================
+   ФОРМА, ВАЛИДАЦИЯ И КНОПКА ОТПРАВКИ
+   ========================================== */
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+input[type="text"], textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 16px;
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+input[type="text"]:focus, textarea:focus {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+textarea {
+    height: 110px;
+    resize: none;
+}
+
+/* Ошибки заполнения */
+input.invalid, textarea.invalid {
+    border-color: #ff4a4a !important;
+    background: rgba(255, 74, 74, 0.01);
+}
+
+.custom-error-label {
+    color: #ff4a4a;
+    font-size: 12px;
+    margin-top: 6px;
+    display: block;
+}
+
+.submit-btn {
+    width: 100%;
+    background: #ffffff;
+    color: #000000;
+    border: none;
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.submit-btn:hover {
+    background: #e5e5e7;
+}
+
+/* Индикатор загрузки */
+.spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(0,0,0,0.1);
+    border-radius: 50%;
+    border-top-color: #000;
+    animation: rotateLoading 0.8s linear infinite;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.spinner.hidden { display: none; }
+
+@keyframes rotateLoading {
+    to { transform: rotate(360deg); }
+}
+
+/* ==========================================
+   ОКНО УСПЕШНОГО ДЕЙСТВИЯ (SUCCESS)
+   ========================================== */
+.success-message-box {
+    text-align: center;
+    padding: 45px 20px;
+    background: rgba(0, 255, 136, 0.01);
+    border: 1px dashed rgba(0, 255, 136, 0.3);
+    border-radius: 16px;
+}
+
+.success-sparkle-icon {
+    width: 48px;
+    height: 48px;
+    color: #00ff88;
+    margin-bottom: 16px;
+}
+
+.success-message-box h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.success-message-box p {
+    font-size: 14px;
+    color: #888;
+    line-height: 1.5;
+}
+
+/* Стили плавного появления (IntersectionObserver) */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.scroll-reveal-active {
+    opacity: 1;
+    transform: translateY(0);
+}
